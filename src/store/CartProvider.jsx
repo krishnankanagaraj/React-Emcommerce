@@ -42,7 +42,7 @@ const cartReducer=(state,action)=>{
         }
         return {items:updatedItems,totalAmount:updatedAmout}
     }
-    if(action.type=='EMPTY'){
+    if(action.type==='EMPTY'){
         return defaultCartValues
     }
     console.log('end')

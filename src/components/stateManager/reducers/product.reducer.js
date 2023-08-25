@@ -4,7 +4,7 @@ const initialState={
    productData:null 
 }
 
-export default (state = initialState, action = {}) => {
+const productReducer=(state = initialState, action = {}) => {
     switch (action.type) {
         case type.SAVE_PRODUCTS:
             return {
@@ -15,3 +15,4 @@ export default (state = initialState, action = {}) => {
             return state
     }
 }
+export default productReducer

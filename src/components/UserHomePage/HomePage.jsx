@@ -90,7 +90,7 @@ const HomePage=(props)=>{
         })
        )
 }).catch(err=>{console.log(err.message)})
-},[])
+},[dispatch])
 useEffect(()=>{
     setProducts(productData?.productData?.productData)
     console.log(products)
