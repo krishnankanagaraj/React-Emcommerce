@@ -105,7 +105,11 @@ return(
 <Fragment>
     <Layout>
       <Header style={{height:'5rem',position:'fixed',zIndex:'99',width:'100vw'}} >
-        <Menu style={{height:'100%',width:'100vw',marginLeft:'-50px',paddingInline:'25px',display:'flex',justifyContent:'flex-end',paddingRight:'100px'}} onClick={(key)=>{setSort(key.key);key.key=='userLogin'&&loginctx.isLoggedIn===false?loginForm(true):loginForm('')}} mode='horizontal'
+        <Menu style={{height:'100%',width:'100vw',marginLeft:'-50px',paddingInline:'25px',display:'flex',justifyContent:'flex-end',paddingRight:'100px'}} onClick={(key)=>{
+            if(key.key!=='reset'||key.key!=='badge'){
+                setSort(key.key);key.key==='userLogin'&&loginctx.isLoggedIn===false?loginForm(true):loginForm('')
+            }
+        }} mode='horizontal'
             items={[
                 {
                     label:'AMAZON',
@@ -140,11 +144,11 @@ return(
                 },
                 {
                     label:'Reset',
-                    key:''
+                    key:'reset'
                 },
                 {
                     icon:<Badge style={{marginTop:'15px'}} count={cartCount} showZero><ShoppingCartOutlined onClick={()=>{setShowDrawer(true)}} style={{fontSize:"40px",marginLeft:"auto",marginTop:'15px'}}/></Badge>,
-                    key:''
+                    key:'badge'
                 }
                 
         
@@ -154,23 +158,23 @@ return(
       <Layout hasSider>
         <Sider style={{height:'100%'}}><HomePageHeader filter={filter} setFilter={setFilter}/></Sider>
         <Content><div style={{display:'flex',flexWrap:'wrap',gap:'8px',padding:'125px',height:'max-content',}}>
-            {products.length==0&&<Spin style={{position:'absolute',top:'50%',left:'50%',translate:'-50% -50%'}}></Spin>}
+            {products.length===0&&<Spin style={{position:'absolute',top:'50%',left:'50%',translate:'-50% -50%'}}></Spin>}
             {products&&products.filter((product)=>{
-                return filter==""? product: product.category==filter
+                return filter===""? product: product.category===filter
             }).sort((a,b)=>{
-                if(sort==""||sort=='userLogin'){
+                if(sort===""||sort==='userLogin'){
                     return a
                 }
-                else if(sort=="lowToHigh"){
+                else if(sort==="lowToHigh"){
                     return a.price-b.price
                 }
-                else if(sort=="highToLow"){
+                else if(sort==="highToLow"){
                     return b.price-a.price
                 }
-                else if(sort=="aToz"){
+                else if(sort==="aToz"){
                     return a.title.localeCompare(b.title)
                 }
-                else if(sort="zToa"){
+                else if(sort==="zToa"){
                     return b.title.localeCompare(a.title)
                 }
                 else{
@@ -178,7 +182,7 @@ return(
                 }
             }).map((product,index)=>{
         return(
-        <div>
+        <div key={index}>
         <Card onClick={()=>{setProduct1(product); setShowModal(true);}} hoverable style={{width: 240,padding:'10px'}}
         cover={<img style={{height:"150px",objectFit:'scale-down'}} alt="example" src={product.images[0]} />} >
         <Meta title={product.title} />
@@ -210,7 +214,7 @@ return(
     </Modal> 
 <Drawer open={showDrawer} width={600} onClose={()=>setShowDrawer(false)}>
       
-        {cartctx.items&&cartctx.items.length==0&&<Empty></Empty>}
+        {cartctx.items&&cartctx.items.length===0&&<Empty></Empty>}
         {cartctx.items&&cartctx.items.map((item,index)=>{
         
     return(

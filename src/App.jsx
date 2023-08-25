@@ -1,12 +1,10 @@
 import './App.css';
 import HomePage from './components/UserHomePage/HomePage';
-import { useContext, useRef, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import SellerLgoin from './components/SellerLogin/SellerLogin';
+import { useState } from 'react';
+import { Route, Routes, } from 'react-router-dom';
 import { Button, Input, Modal, Space, Typography } from 'antd';
 import CartProvider from './store/CartProvider';
 import LoginContext from './store/LoginContext';
-import UserRegister from './components/UserLogin/UserRegister';
 
 function App() {
   let [showModal,setShowModal]=useState(false);
@@ -46,14 +44,14 @@ function App() {
    if(!emailVal.includes('@')||passVal.trim().length<8){
       setErr({...err,valid:'true',message:'Please enter a Valid Email and password'});
     }
-    else if(users.findIndex(user=>user.email==emailVal)==-1|| users.findIndex(user=>user.password==passVal)==-1){
+    else if(users.findIndex(user=>user.email===emailVal)===-1|| users.findIndex(user=>user.password===passVal)===-1){
       console.log('working')
       setErr({...err,valid:'true',message:'Login Credentials are wrong'})
       console.log(err.valid);
       console.log(err.message)
    }
    else{
-    let user=users.findIndex(user=>user.email==emailVal)
+    let user=users.findIndex(user=>user.email===emailVal)
     setLoggedinUser((perv)=>perv=users[user].name)
     setErr({...err,valid:'false'})
     setIsLoggedIn(true);
@@ -68,10 +66,7 @@ function App() {
   return (
     <LoginContext.Provider value={{isLoggedIn:isLoggedIn,setIsLoggedIn:setIsLoggedIn,user:loggedinUser}}>
     <CartProvider>
-    <div className="App">
-      {/* {!isLoggedIn&&<Admin setIsLoggedIn={setIsLoggedIn}></Admin>}
-      {isLoggedIn&&<HomePage/>} */}
-      
+    <div className="App">      
       <Routes>       
         <Route path='/' element={<HomePage onLoad={()=>setShowModal(true)} loginForm={setShowModal}/>}/>
         <Route path="/home/" element={<HomePage loginForm={setShowModal} />}/>
@@ -81,7 +76,7 @@ function App() {
         <Space.Compact direction='vertical' style={{width:'100%',padding:'15px',gap:'25px',marginTop:'50px'}}>
           <Input style={{height:'3rem'}} type='text' placeholder='Enter Your Email or Phone Number' onChange={(e)=>setEmailVal(e.target.value)}value={emailVal} ></Input>
           <Input style={{height:'3rem'}} type='password' placeholder='Enter Your Password min 8 letters' value={passVal} onChange={(e)=>setPassVal(e.target.value)} ></Input>
-          {err.valid=='true'&&<p>{err.message}</p>}
+          {err.valid==='true'&&<p>{err.message}</p>}
           <Button type='primary' htmlType='submit' style={{height:'2.5rem', borderRadius:'8px'}} onClick={valiadateUser}>Sign In</Button>
           <Typography.Text style={{textAlign:'center'}}>Forgot Password?  <Typography.Link underline href='#'>Click here</Typography.Link></Typography.Text>
          <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'10px'}}>

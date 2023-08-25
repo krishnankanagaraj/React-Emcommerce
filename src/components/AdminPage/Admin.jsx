@@ -1,8 +1,7 @@
 
-import {Avatar, Button, Input, Space, Typography} from 'antd'
+import {Button, Input, Space,} from 'antd'
 import { useNavigate } from 'react-router-dom'
 const Admin=(props)=>{
-    let{setIsLoggedIn}=props
     const navigate=useNavigate();
     return(
         <div className="admin">

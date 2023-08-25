@@ -11,7 +11,7 @@ const HomePageHeader=(props)=>{
     return(
         <div>
             <Menu style={{height:'100%',position:'fixed',width:'250px',paddingBlock:"125px"}} onClick={(key)=>{
-                if(key.key==''){
+                if(key.key===''||key.key==='logout'){
                     setFilter('')
                 }
                 else{
@@ -58,7 +58,7 @@ const HomePageHeader=(props)=>{
                         },
                         {
                             label:"Women's Shoes",
-                            key:'mens-shoes'
+                            key:'womens-shoes'
                         },
                         {
                             label:"Women's Watches",
@@ -85,14 +85,6 @@ const HomePageHeader=(props)=>{
                         {
                             label:'Laptops',
                             key:'laptops'
-                        },
-                        {
-                            label:"Men's Watches",
-                            key:'mens-watches'
-                        },
-                        {
-                            label:"Women's Watches",
-                            key:'womens-watches'
                         }, 
                     ]
                 },
@@ -144,7 +136,6 @@ const HomePageHeader=(props)=>{
                 },
                 {
                     label:'Automotive',
-                    key:'automotive',
                     children:[
                         {
                             label:'Automotive',
@@ -158,7 +149,7 @@ const HomePageHeader=(props)=>{
                 },
                 {
                     label:`${loginctx.isLoggedIn?`LogOut`:''}`,
-                    key:'',
+                    key:'logout',
                     onClick:()=>{loginctx.setIsLoggedIn(false);console.log(loginctx.isLoggedIn)}
                 }
             ]}

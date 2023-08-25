@@ -1,5 +1,4 @@
-import { FacebookOutlined } from '@ant-design/icons'
-import {Space,Typography,Menu} from 'antd'
+import {Typography} from 'antd'
 
 const HomePageFooter=()=>{
 
